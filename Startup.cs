@@ -25,7 +25,7 @@ namespace watchlist
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<MovieListContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

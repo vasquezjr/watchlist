@@ -16,5 +16,6 @@ namespace watchlist.Models
         [Column(TypeName = "nvarchar(40)")]
         public int MovieName { get; set; }
 
+        public List<MovieListEntry> MovieListEntries { get; set; }
     }
 }
