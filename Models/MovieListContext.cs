@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using watchlist.Models;
 
 namespace watchlist.Models
 {
@@ -14,11 +15,24 @@ namespace watchlist.Models
         public DbSet<MovieList> MovieLists { get; set; }
         public DbSet<Movie> Movies { get; set; }
 
+        //Many to Many Relationship for MovieList and Movie
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MovieList>()
-                .HasMany(ml => ml.Movies)
-                .WithOne();
+            modelBuilder.Entity<MovieListEntry>()
+                .HasKey(mle => new { mle.MovieListId, mle.MovieId });
+
+            modelBuilder.Entity<MovieListEntry>()
+                .HasOne(mle => mle.MovieList)
+                .WithMany(ml => ml.MovieListEntries)
+                .HasForeignKey(mle => mle.MovieListId);
+
+            modelBuilder.Entity<MovieListEntry>()
+                .HasOne(mle => mle.Movie)
+                .WithMany(m => m.MovieListEntries)
+                .HasForeignKey(mle => mle.MovieId);
         }
+
+        //Many to Many Relationship for MovieList and Movie
+        public DbSet<watchlist.Models.MovieListEntry> MovieListEntry { get; set; }
     }
 }
