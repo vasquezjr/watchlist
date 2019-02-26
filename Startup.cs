@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using watchlist.Models;
 
 namespace watchlist
 {
@@ -21,6 +23,9 @@ namespace watchlist
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<MovieListContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
