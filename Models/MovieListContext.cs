@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using watchlist.Models;
 
 namespace watchlist.Models
 {
@@ -30,5 +31,8 @@ namespace watchlist.Models
                 .WithMany(m => m.MovieListEntries)
                 .HasForeignKey(mle => mle.MovieId);
         }
+
+        //Many to Many Relationship for MovieList and Movie
+        public DbSet<watchlist.Models.MovieListEntry> MovieListEntry { get; set; }
     }
 }

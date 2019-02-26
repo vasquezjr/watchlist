@@ -24,9 +24,10 @@ namespace watchlist.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MovieApiId");
+
                     b.Property<string>("MovieName")
                         .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 64)))
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("MovieId");
@@ -55,7 +56,11 @@ namespace watchlist.Migrations
 
                     b.Property<int>("MovieId");
 
+                    b.Property<int>("MovieListEntryId");
+
                     b.HasKey("MovieListId", "MovieId");
+
+                    b.HasAlternateKey("MovieListEntryId");
 
                     b.HasIndex("MovieId");
 

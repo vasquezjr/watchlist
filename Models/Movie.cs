@@ -13,9 +13,12 @@ namespace watchlist.Models
         public int MovieId { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(40)")]
-        public int MovieName { get; set; }
+        public int MovieApiId { get; set; }
 
+        [Required]
+        [Column(TypeName = "nvarchar(40)")]
+        public string MovieName { get; set; }
         public List<MovieListEntry> MovieListEntries { get; set; }
+
     }
 }

@@ -9,8 +9,8 @@ using watchlist.Models;
 namespace watchlist.Migrations
 {
     [DbContext(typeof(MovieListContext))]
-    [Migration("20190226040233_InitialCreate1")]
-    partial class InitialCreate1
+    [Migration("20190226094317_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,10 @@ namespace watchlist.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MovieApiId");
+
                     b.Property<string>("MovieName")
                         .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 64)))
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("MovieId");
@@ -57,7 +58,11 @@ namespace watchlist.Migrations
 
                     b.Property<int>("MovieId");
 
+                    b.Property<int>("MovieListEntryId");
+
                     b.HasKey("MovieListId", "MovieId");
+
+                    b.HasAlternateKey("MovieListEntryId");
 
                     b.HasIndex("MovieId");
 

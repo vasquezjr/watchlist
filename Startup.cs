@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using watchlist.Models;
 
 namespace watchlist
@@ -22,7 +24,20 @@ namespace watchlist
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options =>
+                {
+
+                    var resolver = options.SerializerSettings.ContractResolver;
+                    if (resolver != null)
+                    {
+                        (resolver as DefaultContractResolver).NamingStrategy = null;
+                    }
+                });
+
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             services.AddDbContext<MovieListContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
@@ -58,6 +73,8 @@ namespace watchlist
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+
 
             app.UseSpa(spa =>
             {
