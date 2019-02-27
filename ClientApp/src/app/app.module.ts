@@ -19,6 +19,9 @@ import { MovieService } from './movie-lists/shared/movie.service';
 import { MovieListService } from './movie-lists/shared/movie-list.service';
 import { MovieListsService } from './movie-lists/shared/movie-lists.service';
 
+//For Toastr
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,10 +38,13 @@ import { MovieListsService } from './movie-lists/shared/movie-lists.service';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'movielist/:id', component: MovieListComponent },
     ])
   ],
   //Add Services to Providers to be able to use in other Components

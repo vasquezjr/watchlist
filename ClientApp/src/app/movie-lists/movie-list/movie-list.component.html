@@ -11,20 +11,22 @@
 
 
 
-<table class='table table-striped' *ngIf="service.movieListSelected">
+<table class='table table-striped' *ngIf="selectedMovieList">
     <thead>
       <tr>
-        <th>Current List : {{service.movieListSelected.MovieListName}}</th>
+        <th>{{selectedMovieList.MovieListName}}</th>
        
+        <th></th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ml of service.movieListSelected.MovieListEntries">
+      <tr *ngFor="let ml of selectedMovieList.MovieListEntries">
         <td>{{ml.MovieId}}</td>
-        <td>{{ forecast.temperatureC }}</td>
-        <td>{{ forecast.temperatureF }}</td>
-        <td>{{ forecast.summary }}</td>
+        <td>Description</td>
+        <td>YEAR</td>
+        <td>BLAH</td>
       </tr>
     </tbody>
   </table>

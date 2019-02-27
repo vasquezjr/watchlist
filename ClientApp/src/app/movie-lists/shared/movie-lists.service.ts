@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class MovieListsService {
   movieLists: MovieList[];
-  movieListSelected : MovieList;
+ 
   formData : MovieList = {
     MovieListId : 0,
     MovieListName: '',
@@ -27,12 +27,7 @@ export class MovieListsService {
     .then(res => this.movieLists = res as MovieList[]);
   }
 
-  //Get the Selected MovieList and Populate The Movies
-  getMovieList (id) {
-    this.http.get(this.rootURL + '/MovieLists/' + id)
-    .toPromise()
-    .then(result => this.movieListSelected = result as MovieList);
-  }
+  
 
   //Add New List Item
   postMovieList () {

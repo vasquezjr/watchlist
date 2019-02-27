@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieListsService } from './shared/movie-lists.service';
 import { MovieList } from './shared/movie-list.model';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-lists',
@@ -11,7 +12,8 @@ import { NgForm } from '@angular/forms';
 export class MovieListsComponent implements OnInit {
 
  
-  constructor(private service: MovieListsService) { }
+  constructor(private service: MovieListsService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.service.getMovieLists();
@@ -50,8 +52,9 @@ export class MovieListsComponent implements OnInit {
   onSubmit(form:NgForm) {
     this.service.postMovieList().subscribe(
       result => {
-        //If get result back then success and Rest Add List Form
+        //If get result back then success with Toastr and Reset Add List Form
         this.resetForm(form);
+        this.toastr.success('Submitted Successfully', 'Movie List Added');
 
         //Reset MovieLists to Update Added Item
         this.service.getMovieLists();
