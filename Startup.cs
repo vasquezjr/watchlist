@@ -42,6 +42,8 @@ namespace watchlist
             services.AddDbContext<MovieListContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
+            services.AddCors();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -66,6 +68,10 @@ namespace watchlist
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseCors(options =>
+            options.WithOrigins("https://localhost:4200")
+            .AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc(routes =>
             {
