@@ -13,6 +13,13 @@ import { MovieListsComponent } from './movie-lists/movie-lists.component';
 import { MovieListComponent } from './movie-lists/movie-list/movie-list.component';
 import { MovieComponent } from './movie-lists/movie/movie.component';
 
+//Services
+import { MovieListEntryService } from './movie-lists/shared/movie-list-entry.service';
+import { MovieService } from './movie-lists/shared/movie.service';
+import { MovieListService } from './movie-lists/shared/movie-list.service';
+import { MovieListsService } from './movie-lists/shared/movie-lists.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +41,8 @@ import { MovieComponent } from './movie-lists/movie/movie.component';
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
-  providers: [],
+  //Add Services to Providers to be able to use in other Components
+  providers: [MovieListEntryService, MovieListService, MovieService, MovieListsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

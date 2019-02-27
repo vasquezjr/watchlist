@@ -1,5 +1,5 @@
 export class MovieList {
     MovieListId: number;
-    MovieListName: number;
+    MovieListName: string;
     "MovieListEntries": null;
 }

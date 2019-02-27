@@ -1,3 +1,24 @@
-<p>
-  movie-lists works!
-</p>
+<table class="table table-hover">
+  <tr *ngFor="let ml of service.movieLists">
+    <td (click)="selectedList(ml)">{{ml.MovieListName}}</td>
+    <td>
+        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(ml.MovieListId)"></i>
+      </td>
+  </tr>
+</table>
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text bg-blue">
+            <i class="fas fa-list-ul"></i>
+        </div>
+      </div>
+      <input name="MovieListName" #MovieListName="ngModel" [(ngModel)]="service.formData.MovieListName" type="text" class="form-control" placeholder="New List">
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" type="submit">Add List</button>
+  </div>
+</form>

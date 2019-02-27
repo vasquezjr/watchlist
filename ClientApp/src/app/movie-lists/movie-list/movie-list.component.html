@@ -1,3 +1,30 @@
-<p>
-  movie-list works!
-</p>
+<!-- <table *ngIf="service.movieListSelected">
+<tr >
+    <td>
+      {{service.movieListSelected.MovieListName}}
+    </td>
+    <td *ngIf="service.movieListSelected.MovieListEntries">
+    {{service.movieListSelected.MovieListEntries[0].MovieId}}
+  </td>
+  </tr>
+</table> -->
+
+
+
+<table class='table table-striped' *ngIf="service.movieListSelected">
+    <thead>
+      <tr>
+        <th>Current List : {{service.movieListSelected.MovieListName}}</th>
+       
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ml of service.movieListSelected.MovieListEntries">
+        <td>{{ml.MovieId}}</td>
+        <td>{{ forecast.temperatureC }}</td>
+        <td>{{ forecast.temperatureF }}</td>
+        <td>{{ forecast.summary }}</td>
+      </tr>
+    </tbody>
+  </table>
