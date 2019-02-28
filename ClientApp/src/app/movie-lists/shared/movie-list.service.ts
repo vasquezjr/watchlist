@@ -44,7 +44,7 @@ export class MovieListService {
 
   }
 
-  deleteMovieListEntry(id: number){
-     return this.http.delete(this.rootURL + '/MovieListEntries/' + id);
+  deleteMovieListEntry(movieListId: number, movieId: number){
+     return this.http.delete(this.rootURL + '/MovieListEntries/' + movieListId + '/' + movieId);
   }
 }

@@ -104,11 +104,19 @@ namespace watchlist.Controllers
             return CreatedAtAction("GetMovieListEntry", new { id = movieListEntry.MovieListId }, movieListEntry);
         }
 
-        // DELETE: api/MovieListEntries/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<MovieListEntry>> DeleteMovieListEntry(int id)
+        // DELETE: api/MovieListEntries/movieListId/movieId
+        //[HttpDelete("{id}")]
+
+        //public async Task<ActionResult<MovieListEntry>> DeleteMovieListEntry(int id)
+
+        [HttpDelete("{movieListId}/{movieId}")]
+        public async Task<ActionResult<MovieListEntry>> DeleteMovieListEntry(int movieListId, int movieId)
         {
-            var movieListEntry = await _context.MovieListEntry.FindAsync(id);
+            //var movieListEntry = await _context.MovieListEntry.Find(movieListId, movieId);
+            //var movieListEntry = await _context.MovieListEntry.FindAsync(id);
+
+            var movieListEntry = await _context.MovieListEntry.Where(m => (m.MovieListId == movieListId) && (m.MovieId == movieId)).FirstOrDefaultAsync(); 
+
             if (movieListEntry == null)
             {
                 return NotFound();

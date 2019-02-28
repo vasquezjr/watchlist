@@ -86,9 +86,9 @@ export class MovieListComponent implements OnInit {
     this.addNewMovie(form);
   }
 
-  onDelete(id:number)
+  onDelete(movieListId:number, movieId:number)
   {
-    this.service.deleteMovieListEntry(id)
+    this.service.deleteMovieListEntry(movieListId, movieId)
     .pipe( takeUntil(this.ngUnsubscribe))
     .subscribe(
       result => {

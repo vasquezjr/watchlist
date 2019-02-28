@@ -41,11 +41,11 @@ namespace watchlist.Controllers
 
 
             if (movieList == null)
-             {
-                 return NotFound();
-             }
+            {
+                return NotFound();
+            }
 
-             return movieList;
+            return movieList;
         }
 
         // PUT: api/MovieLists/5
@@ -113,5 +113,6 @@ namespace watchlist.Controllers
         {
             return _context.MovieLists.Any(e => e.MovieListId == id);
         }
+
     }
 }
