@@ -19,6 +19,7 @@ import { MovieService } from './movie-lists/shared/movie.service';
 import { MovieListService } from './movie-lists/shared/movie-list.service';
 import { MovieListsService } from './movie-lists/shared/movie-lists.service';
 
+
 //For Toastr
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using watchlist.Models;
 
 namespace watchlist.Migrations
 {
     [DbContext(typeof(MovieListContext))]
-    partial class MovieListContextModelSnapshot : ModelSnapshot
+    [Migration("20190228004339_InitialCreate3")]
+    partial class InitialCreate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,11 @@ namespace watchlist.Migrations
 
                     b.Property<int>("MovieId");
 
+                    b.Property<int>("MovieListEntryId");
+
                     b.HasKey("MovieListId", "MovieId");
+
+                    b.HasAlternateKey("MovieListEntryId");
 
                     b.HasIndex("MovieId");
 

@@ -1,13 +1,4 @@
-<!-- <table class="table table-hover">
-  <tr *ngFor="let ml of service.movieLists">
-    <td (click)="selectedList(ml)">{{ml.MovieListName}}</td>
-    <td>
-        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(ml.MovieListId)"></i>
-      </td>
-  </tr>
-</table> -->
-
-<table class='table table-striped'>
+<table *ngIf="movieLists.length" class='table table-striped'>
     <thead>
       <tr>
         <th>MovieList</th>
@@ -18,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ml of service.movieLists">
+      <tr *ngFor="let ml of movieLists">
         <td routerLink="/movielist/{{ml.MovieListId}}">{{ml.MovieListName}}</td>
         <td>Description of List</td>
         <td>11</td>
@@ -47,3 +38,4 @@
     <button class="btn btn-success btn-lg btn-block" type="submit">Add List</button>
   </div>
 </form>
+

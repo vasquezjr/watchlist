@@ -30,19 +30,22 @@ namespace watchlist.Controllers
 
         // GET: api/MovieLists/5
         [HttpGet("{id}")]
-        //public async Task<ActionResult<MovieListEntry>> GetMovieList(int id)
         public async Task<ActionResult<MovieList>> GetMovieList(int id)
         {
             //var movieList = await _context.MovieLists.FindAsync(id);
+            //var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
 
-            var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
+            var movieList = await _context.MovieLists.Include(ml => ml.MovieListEntries).ThenInclude(mle => mle.Movie).SingleOrDefaultAsync(i => i.MovieListId == id);
+
+            //var movieList = await _context.MovieLists.Include(ml => ml.MovieListEntries.Where(mle => mle.MovieListId == id)).SingleOrDefaultAsync();
+
 
             if (movieList == null)
-            {
-                return NotFound();
-            }
+             {
+                 return NotFound();
+             }
 
-            return movieList;
+             return movieList;
         }
 
         // PUT: api/MovieLists/5

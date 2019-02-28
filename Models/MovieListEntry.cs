@@ -8,9 +8,7 @@ namespace watchlist.Models
 {
     public class MovieListEntry
     {
-        [Key]
-        public int MovieListEntryId { get; set; }
-
+       
         public int MovieListId { get; set; }
         public MovieList MovieList { get; set; }
 

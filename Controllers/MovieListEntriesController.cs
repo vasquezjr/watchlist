@@ -24,7 +24,11 @@ namespace watchlist.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieListEntry>>> GetMovieListEntry()
         {
+            
+            //var movieListEntry = await _context.MovieListEntry.Include(mle => mle.Movie).ToListAsync();
+
             return await _context.MovieListEntry.ToListAsync();
+            //return movieListEntry;
         }
 
         // GET: api/MovieListEntries/5
@@ -32,9 +36,9 @@ namespace watchlist.Controllers
         public async Task<ActionResult<MovieListEntry>> GetMovieListEntry(int id)
         {
             var movieListEntry = await _context.MovieListEntry.FindAsync(id);
+            //var movieListEntry = await _context.MovieListEntry.Include(mle => mle.Movie).SingleOrDefaultAsync(mle => mle.MovieListEntryId == id);
 
-           // var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
-
+         
             if (movieListEntry == null)
             {
                 return NotFound();
@@ -54,9 +58,6 @@ namespace watchlist.Controllers
 
             _context.Entry(movieListEntry).State = EntityState.Modified;
             
-
-
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -81,10 +82,8 @@ namespace watchlist.Controllers
         public async Task<ActionResult<MovieListEntry>> PostMovieListEntry(MovieListEntry movieListEntry)
         {
             _context.MovieListEntry.Add(movieListEntry);
+            //await _context.SaveChangesAsync();
 
-            //var movieList = await _context.MovieLists.FindAsync(movieListEntry.MovieListId);
-            //movieList.MovieListEntries.Add(movieListEntry);
-            // MovieList ml = new Movielist
             try
             {
                 await _context.SaveChangesAsync();
@@ -101,7 +100,7 @@ namespace watchlist.Controllers
                 }
             }
 
-            
+
             return CreatedAtAction("GetMovieListEntry", new { id = movieListEntry.MovieListId }, movieListEntry);
         }
 
