@@ -23,6 +23,8 @@ import { MovieListsService } from './movie-lists/shared/movie-lists.service';
 //For Toastr
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MovieSearchComponent } from './movie-lists/movie-search/movie-search.component';
+import { MovieSearchService } from './movie-lists/shared/movie-search.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MovieListsComponent,
     MovieListComponent,
     MovieComponent,
+    MovieSearchComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ])
   ],
   //Add Services to Providers to be able to use in other Components
-  providers: [MovieListEntryService, MovieListService, MovieService, MovieListsService ],
+  providers: [MovieListEntryService, MovieListService, MovieService, MovieListsService, MovieSearchService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
