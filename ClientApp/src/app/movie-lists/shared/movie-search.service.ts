@@ -15,8 +15,6 @@ export class MovieSearchService {
 
   constructor(private http: HttpClient) { }
 
-  
-
   searchMovies(term: string): Observable<any[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -25,9 +23,7 @@ export class MovieSearchService {
     //return this.http.get<Movie[]>(`${this.heroesUrl}/?name=${term}`);
 
     return this.http.get(this.movieSearchUrl + term + this.movieSearchUrlPart2).pipe(
-      map(res => res["results"])
+      map(res => res["results"].slice(0,3))
     );
-
-    //map(res => res.json.results as any[] );
   }
 }

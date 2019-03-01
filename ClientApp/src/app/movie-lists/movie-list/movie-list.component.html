@@ -13,7 +13,7 @@
       <tr *ngFor="let ml of selectedMovieList.MovieListEntries">
         <td>{{ml.Movie.MovieName}}</td>
         <td>Description</td>
-        <td>YEAR</td>
+        <td>Video: {{ml.Movie.MovieApiId}}</td>
         <td>BLAH</td>
         <td>
             <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(ml.MovieListId, ml.Movie.MovieId)"></i>

@@ -75,13 +75,17 @@ namespace watchlist.Controllers
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
+            //Checks if Movie Exits by MovieAPiID provided from themoviedb 
             var movieCheck = await _context.Movies.SingleOrDefaultAsync(e => e.MovieApiId == movie.MovieApiId);
 
+            //If Exits then Return 201 with reference to 
             if (movieCheck != null)
             {
-                return CreatedAtAction("GetMovie", new { id = movieCheck.MovieId }, movie);
+                return CreatedAtAction("GetMovie", new { id = movieCheck.MovieId }, movieCheck);
+           
             }
             
+            //If movie doesnt exit then add to database 
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
 
