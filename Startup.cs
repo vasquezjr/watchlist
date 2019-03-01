@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using watchlist.Models;
 
 namespace watchlist
@@ -35,12 +36,22 @@ namespace watchlist
                     }
                 });
 
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            services.AddDbContext<MovieListContext>(options =>
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<MovieListContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<MovieListContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<MovieListContext>().Database.Migrate();
+
+            
 
             services.AddCors();
 
