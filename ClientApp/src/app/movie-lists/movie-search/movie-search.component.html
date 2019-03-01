@@ -1,17 +1,19 @@
 <div id="search-component">
-  <h4>Movie Search</h4>
+  <div class="row">
+      <div class="col-sm-4" style="text-align: right;">
+          <h4>Movie Search</h4>
+      </div>
+      <div class="col-sm-8">
+          <input #searchBox id="search-box" (input)="search(searchBox.value)" />
  
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
- 
-  <ul class="search-result">
-    <li *ngFor="let movie of movies$ | async" >
-      <a (click)="addMovieToDatabase(movie)">
-        {{movie["title"]}}
-      </a>
-    </li>
-  </ul>
+          <ul class="search-result">
+            <li *ngFor="let movie of movies$ | async" >
+              <a (click)="addMovieToDatabase(movie)">
+                {{movie["title"]}}
+              </a>
+            </li>
+          </ul>
+      </div>
+  </div>
 </div>
 
-<div>
-
-</div>

@@ -1,19 +1,21 @@
 <table *ngIf="movieLists.length" class='table table-striped'>
     <thead>
       <tr>
+        <th>#</th>
         <th>MovieList</th>
-        <th>Description</th>
-        <th>Watched</th>
-        <th>Unwatched</th>
+        <th></th>
+        <th></th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ml of movieLists">
-        <td routerLink="/movielist/{{ml.MovieListId}}">{{ml.MovieListName}}</td>
-        <td>Description of List</td>
-        <td>11</td>
-        <td>2</td>
+      <tr *ngFor="let ml of movieLists; index as i;">
+        <td>{{i + 1}}</td>
+        <td routerLink="/movielist/{{ml.MovieListId}}">{{ml.MovieListName | uppercase }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>
             <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(ml.MovieListId)"></i>
         </td>

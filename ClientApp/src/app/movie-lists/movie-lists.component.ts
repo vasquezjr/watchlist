@@ -45,9 +45,12 @@ export class MovieListsComponent implements OnInit {
     .subscribe(
       result => {
         this.refreshLists();
-        this.toastr.success('Successfully Deleted', 'Movie List Deleted');
+        this.toastr.success('Successfully Deleted', `${result["MovieListName"]}`);
         },
-      error => {console.log(error)}
+      error => {
+        console.log(error)
+        this.toastr.success('ERROR', `When Trying to Delete`);
+      }
     )
   }
 
@@ -72,12 +75,15 @@ export class MovieListsComponent implements OnInit {
       result => {
         //If get result back then success with Toastr and Reset Add List Form
         this.resetForm(form);
-        this.toastr.success('Submitted Successfully', 'Movie List Added');
+        this.toastr.success('Successfully Added', `${result["MovieListName"]}`);
 
         //Reset MovieLists to Update Added Item
         this.refreshLists();
       },
-      error => {console.log(error)}
+      error => {
+        console.log(error)
+        this.toastr.error("Duplicate", "Error Adding To List");
+      }
     );
   }
 }

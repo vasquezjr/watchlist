@@ -87,6 +87,13 @@ namespace watchlist.Controllers
         [HttpPost]
         public async Task<ActionResult<MovieList>> PostMovieList(MovieList movieList)
         {
+            var movieListCheck = await _context.MovieLists.SingleOrDefaultAsync(e => e.MovieListName == movieList.MovieListName);
+
+            //If Exits then Return 201 with reference to 
+            if (movieListCheck != null)
+            {
+                return BadRequest(); 
+            }
             _context.MovieLists.Add(movieList);
             await _context.SaveChangesAsync();
 

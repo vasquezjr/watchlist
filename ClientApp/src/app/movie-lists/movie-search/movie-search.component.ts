@@ -61,12 +61,17 @@ export class MovieSearchComponent implements OnInit {
     //When MovieTrailer Grabbed Now I can Add to Database
     this.getMovieTrailer(movie)
     .subscribe( video => {
-      this.setYoutubeLink(video["results"][0].key); //grabes youtube id from search
-      console.log("SearchTerm", this.serviceMovieList.movie)
+      if(video["results"].length > 0){
+        this.setYoutubeLink(video["results"][0].key); //grabes youtube id from search
+      }
+       
+      console.log("Add Movie To Database", this.serviceMovieList.movie)
       this.addNewMovie.emit();
       
     },
-    error => console.log(error)
+      error => {
+        console.log(error)
+      }
     )
     
   }
