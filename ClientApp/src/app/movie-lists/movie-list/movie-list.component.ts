@@ -13,8 +13,6 @@ import { takeUntil } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { Movie } from '../shared/movie.model';
 
-
-
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
@@ -29,6 +27,9 @@ export class MovieListComponent implements OnInit {
               private service: MovieListService,
               private toastr: ToastrService) { }
 
+
+  
+  // ***************************** LIFE CYCLES ********************             
   ngOnInit() {
     this.getSelectedMovieList();
   }
@@ -38,6 +39,11 @@ export class MovieListComponent implements OnInit {
     this.ngUnsubscribe.complete();
   }
 
+  onSubmit(form:NgForm){
+    //this.addNewMovie(form);
+  }
+
+  // ***************************** Database ********************  
   getSelectedMovieList(){
     const id = +this.route.snapshot.paramMap.get('id');
     this.service.getMovieList(id)
@@ -48,44 +54,52 @@ export class MovieListComponent implements OnInit {
     );
   }
 
-  addNewMovie(form:NgForm) {
-    console.log("Adding New Movie");
+  //Add New Movie to Databse if Doesnt Exits
+  //If Exists It References The One currently in Database 
+  addNewMovie() {
+    //console.log(movie["MovieDescription"])
+    console.log("Inside Movie List Componenet: ", this.service.movie);
+
+    //Adding Movie to List
     this.service.postMovie()
     .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe(result => {
-      this.currentMovie = result as Movie;
-      console.log(this.currentMovie.MovieId);
-      this.service.formData.MovieId = this.currentMovie.MovieId;
-      this.addMoveListEntry(form);
-    },
-    error => {
-      console.log(error);
-    }
+    .subscribe(result => 
+      {
+        this.currentMovie = result as Movie;
+        this.addMoveListEntry(); //possible add Form back
+      },
+        error => {
+          console.log(error);
+      }
     );
-
-    
   }
 
-  addMoveListEntry(form:NgForm) {
+  //Set Up Movie List Entry for adding to Database
+  setMovieListEntry() {
+    this.service.formData.MovieId = this.currentMovie.MovieId;
     this.service.formData.MovieListId = this.selectedMovieList.MovieListId;
+  }
+
+  //Adds New Movie to MovieList 
+  addMoveListEntry() { //possibly add form back form:NgForm
+    
+    this.setMovieListEntry();
     console.log("MovieListId: ", this.service.formData.MovieListId);
     console.log("MovieId: ", this.service.formData.MovieId);
     this.service.postMovieListEntry()
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(result => {
       this.getSelectedMovieList();
-      this.resetForm(form);
+      //this.resetForm(form);  //Might ReAdd Once I Figure Out Search
       this.toastr.success('Added Successfully', 'Movie Added to List');
     },
     error => {
+      this.toastr.error('Check if Movie in List', 'Error Adding Movie')
       console.log(error);
     })
   }
 
-  onSubmit(form:NgForm){
-    this.addNewMovie(form);
-  }
-
+  //Deletes the Entry that References the MovieList and Movie
   onDelete(movieListId:number, movieId:number)
   {
     this.service.deleteMovieListEntry(movieListId, movieId)
@@ -99,26 +113,31 @@ export class MovieListComponent implements OnInit {
     )
   }
 
+  // ***************************** RESET INFORMATIOM ******************** 
   resetForm(form:NgForm) {
     if(form != null)
       form.resetForm();
-    this.resetMovieListEntry();
+    this.resetMovieListEntryData();
+    this.resetMovieData();
   }
 
-  resetMovieListEntry() {
+  resetMovieListEntryData() {
     this.service.formData = {
       MovieListId: 0,
       MovieList: null,
       MovieId: 0,
       Movie: null
     }
-
-    this.service.movie = 
-      {
-        MovieId: 0,
-        MovieApiId: 90,
-        MovieName: 'default',
-        MovieListEntries: null,
-      }
+  }
+  resetMovieData() {
+    this.service.movie = {
+      MovieId: 0,
+      MovieApiId: 90,
+      MovieName: 'No Movie Name',
+      MovieDescription: "No Description",
+      MovieImage: "https://upload.wikimedia.org/wikipedia/en/f/f7/RickRoll.png",
+      MovieTrailerLink: "https://www.youtube.com/watch?v=oHg5SJYRHA0",
+      MovieListEntries: null,
+    }
   }
 }

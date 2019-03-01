@@ -15,5 +15,6 @@ namespace watchlist.Models
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
 
+        public int MovieRating { get; set; }
     }
 }

@@ -5,8 +5,8 @@
  
   <ul class="search-result">
     <li *ngFor="let movie of movies$ | async" >
-      <a routerLink="/detail/{{movie.MovieId}}">
-        {{movie["original_title"]}}
+      <a (click)="addMovieToDatabase(movie)">
+        {{movie["title"]}}
       </a>
     </li>
   </ul>

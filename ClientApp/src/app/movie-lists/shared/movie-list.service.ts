@@ -19,6 +19,9 @@ export class MovieListService {
     MovieId: 0,
     MovieApiId: 90,
     MovieName: 'default',
+    MovieDescription: "No Description",
+    MovieImage: "https://upload.wikimedia.org/wikipedia/en/f/f7/RickRoll.png",
+    MovieTrailerLink: "https://www.youtube.com/watch?v=oHg5SJYRHA0",
     MovieListEntries: null,
   }
   formData: MovieListEntry =  {

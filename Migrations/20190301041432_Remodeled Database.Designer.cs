@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using watchlist.Models;
 
 namespace watchlist.Migrations
 {
     [DbContext(typeof(MovieListContext))]
-    partial class MovieListContextModelSnapshot : ModelSnapshot
+    [Migration("20190301041432_Remodeled Database")]
+    partial class RemodeledDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

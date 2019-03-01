@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -9,9 +9,11 @@ import { tap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MovieSearchService {
-
+  
   movieSearchUrl : string = "https://api.themoviedb.org/3/search/movie?api_key=01295680d58a846b99ffebe8ff6317c2&language=en-US&query="
   movieSearchUrlPart2: string = "&page=1&include_adult=false"
+
+  movieTrailerSearch: string = "";
 
   constructor(private http: HttpClient) { }
 
@@ -26,4 +28,13 @@ export class MovieSearchService {
       map(res => res["results"].slice(0,3))
     );
   }
+
+  searchMovieTrailer(movieId: number) {
+    return this.http.get(this.generateMovieTrailerString(movieId));
+  }
+
+  generateMovieTrailerString(movieId : number, ): string {
+    return "https://api.themoviedb.org/3/movie/" + movieId  + "/videos?api_key=01295680d58a846b99ffebe8ff6317c2&language=en-US"
+  }
+
 }
