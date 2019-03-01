@@ -26,9 +26,15 @@ namespace watchlist.Migrations
 
                     b.Property<int>("MovieApiId");
 
+                    b.Property<string>("MovieDescription");
+
+                    b.Property<string>("MovieImage");
+
                     b.Property<string>("MovieName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MovieTrailerLink");
 
                     b.HasKey("MovieId");
 
@@ -56,11 +62,9 @@ namespace watchlist.Migrations
 
                     b.Property<int>("MovieId");
 
-                    b.Property<int>("MovieListEntryId");
+                    b.Property<int>("MovieRating");
 
                     b.HasKey("MovieListId", "MovieId");
-
-                    b.HasAlternateKey("MovieListEntryId");
 
                     b.HasIndex("MovieId");
 

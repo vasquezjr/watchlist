@@ -30,12 +30,15 @@ namespace watchlist.Controllers
 
         // GET: api/MovieLists/5
         [HttpGet("{id}")]
-        //public async Task<ActionResult<MovieListEntry>> GetMovieList(int id)
         public async Task<ActionResult<MovieList>> GetMovieList(int id)
         {
             //var movieList = await _context.MovieLists.FindAsync(id);
+            //var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
 
-            var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
+            var movieList = await _context.MovieLists.Include(ml => ml.MovieListEntries).ThenInclude(mle => mle.Movie).SingleOrDefaultAsync(i => i.MovieListId == id);
+
+            //var movieList = await _context.MovieLists.Include(ml => ml.MovieListEntries.Where(mle => mle.MovieListId == id)).SingleOrDefaultAsync();
+
 
             if (movieList == null)
             {
@@ -84,6 +87,13 @@ namespace watchlist.Controllers
         [HttpPost]
         public async Task<ActionResult<MovieList>> PostMovieList(MovieList movieList)
         {
+            var movieListCheck = await _context.MovieLists.SingleOrDefaultAsync(e => e.MovieListName == movieList.MovieListName);
+
+            //If Exits then Return 201 with reference to 
+            if (movieListCheck != null)
+            {
+                return BadRequest(); 
+            }
             _context.MovieLists.Add(movieList);
             await _context.SaveChangesAsync();
 
@@ -110,5 +120,6 @@ namespace watchlist.Controllers
         {
             return _context.MovieLists.Any(e => e.MovieListId == id);
         }
+
     }
 }

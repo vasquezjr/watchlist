@@ -9,7 +9,7 @@ namespace watchlist.Models
 {
     public class MovieList
     {  
-        [Key]
+        [Required]
         public int MovieListId { get; set; }
 
         [Required]

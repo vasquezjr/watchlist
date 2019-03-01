@@ -8,14 +8,13 @@ namespace watchlist.Models
 {
     public class MovieListEntry
     {
-        [Key]
-        public int MovieListEntryId { get; set; }
-
+       
         public int MovieListId { get; set; }
         public MovieList MovieList { get; set; }
 
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
 
+        public int MovieRating { get; set; }
     }
 }

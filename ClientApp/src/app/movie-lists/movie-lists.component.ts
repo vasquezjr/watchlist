@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieListsService } from './shared/movie-lists.service';
-import { MovieList } from './shared/movie-list.model';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
+//For Unsubcribe
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { MovieList } from './shared/movie-list.model';
 
 @Component({
   selector: 'app-movie-lists',
@@ -9,28 +14,44 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./movie-lists.component.css']
 })
 export class MovieListsComponent implements OnInit {
-
+  private ngUnsubscribe = new Subject();
+  movieLists : MovieList[] = [];
  
-  constructor(private service: MovieListsService) { }
+  constructor(private service: MovieListsService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.service.getMovieLists();
+    this.refreshLists();
   }
 
-  selectedList(movieList : MovieList) {
-    this.service.movieListSelected = movieList;
-    this.service.getMovieList(movieList.MovieListId);
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
+  refreshLists() {
+    this.service.getMovieLists()
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(result => {
+      this.movieLists = result as MovieList[]
+    })
+  }
+
+  
   onDelete(id:number)
   {
     this.service.deleteMovieList(id)
-    .subscribe(result => {
-      this.service.getMovieLists();
-    },
+    .pipe( takeUntil(this.ngUnsubscribe))
+    .subscribe(
+      result => {
+        this.refreshLists();
+        this.toastr.success('Successfully Deleted', `${result["MovieListName"]}`);
+        },
       error => {
-        console.log(error);
-    })
+        console.log(error)
+        this.toastr.success('ERROR', `When Trying to Delete`);
+      }
+    )
   }
 
   resetForm(form:NgForm) {
@@ -48,16 +69,21 @@ export class MovieListsComponent implements OnInit {
   }
 
   onSubmit(form:NgForm) {
-    this.service.postMovieList().subscribe(
+    this.service.postMovieList()
+    .pipe( takeUntil(this.ngUnsubscribe))
+    .subscribe(
       result => {
-        //If get result back then success and Rest Add List Form
+        //If get result back then success with Toastr and Reset Add List Form
         this.resetForm(form);
+        this.toastr.success('Successfully Added', `${result["MovieListName"]}`);
 
         //Reset MovieLists to Update Added Item
-        this.service.getMovieLists();
+        this.refreshLists();
+      },
+      error => {
+        console.log(error)
+        this.toastr.error("Duplicate", "Error Adding To List");
       }
     );
-    this.resetForm(form);
-
   }
 }

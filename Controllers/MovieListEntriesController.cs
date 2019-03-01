@@ -32,9 +32,9 @@ namespace watchlist.Controllers
         public async Task<ActionResult<MovieListEntry>> GetMovieListEntry(int id)
         {
             var movieListEntry = await _context.MovieListEntry.FindAsync(id);
+            //var movieListEntry = await _context.MovieListEntry.Include(mle => mle.Movie).SingleOrDefaultAsync(mle => mle.MovieListEntryId == id);
 
-           // var movieList = await _context.MovieLists.Include("MovieListEntries").SingleOrDefaultAsync(i => i.MovieListId == id);
-
+         
             if (movieListEntry == null)
             {
                 return NotFound();
@@ -54,9 +54,6 @@ namespace watchlist.Controllers
 
             _context.Entry(movieListEntry).State = EntityState.Modified;
             
-
-
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -82,9 +79,6 @@ namespace watchlist.Controllers
         {
             _context.MovieListEntry.Add(movieListEntry);
 
-            //var movieList = await _context.MovieLists.FindAsync(movieListEntry.MovieListId);
-            //movieList.MovieListEntries.Add(movieListEntry);
-            // MovieList ml = new Movielist
             try
             {
                 await _context.SaveChangesAsync();
@@ -101,15 +95,16 @@ namespace watchlist.Controllers
                 }
             }
 
-            
+
             return CreatedAtAction("GetMovieListEntry", new { id = movieListEntry.MovieListId }, movieListEntry);
         }
 
-        // DELETE: api/MovieListEntries/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<MovieListEntry>> DeleteMovieListEntry(int id)
+        // DELETE: api/MovieListEntries/movieListId/movieId
+        [HttpDelete("{movieListId}/{movieId}")]
+        public async Task<ActionResult<MovieListEntry>> DeleteMovieListEntry(int movieListId, int movieId)
         {
-            var movieListEntry = await _context.MovieListEntry.FindAsync(id);
+            var movieListEntry = await _context.MovieListEntry.Where(m => (m.MovieListId == movieListId) && (m.MovieId == movieId)).FirstOrDefaultAsync(); 
+
             if (movieListEntry == null)
             {
                 return NotFound();
