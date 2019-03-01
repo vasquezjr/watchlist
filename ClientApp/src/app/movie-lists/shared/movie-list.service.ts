@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { MovieListEntry } from './movie-list-entry.model';
 import { Movie } from './movie.model';
+import { environment } from 'src/environments/environment';
 
 
 // import { MovieListEntry } from './movie-list-entry.model';
@@ -13,7 +14,8 @@ import { Movie } from './movie.model';
   providedIn: 'root'
 })
 export class MovieListService {
-  readonly rootURL = 'https://localhost:44347/api'
+  //readonly rootURL = 'https://localhost:44347/api'
+  readonly rootURL = environment.baseUrl;
 
   movie: Movie = {
     MovieId: 0,

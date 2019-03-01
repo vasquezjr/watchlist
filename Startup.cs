@@ -84,7 +84,7 @@ namespace watchlist
             app.UseSpaStaticFiles();
 
             app.UseCors(options =>
-            options.WithOrigins("https://localhost:4200")
+            options.WithOrigins("https://localhost:4200", "https://watchmen302032.azurewebsites.net")
             .AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc(routes =>
