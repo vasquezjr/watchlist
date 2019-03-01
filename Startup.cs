@@ -42,12 +42,15 @@ namespace watchlist
             });
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
                 services.AddDbContext<MovieListContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            }
             else
+            {
                 services.AddDbContext<MovieListContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            }
             // Automatically perform database migration
             services.BuildServiceProvider().GetService<MovieListContext>().Database.Migrate();
 
