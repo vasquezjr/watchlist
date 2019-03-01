@@ -52,7 +52,7 @@ namespace watchlist
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             }
             // Automatically perform database migration
-            services.BuildServiceProvider().GetService<MovieListContext>().Database.Migrate();
+            //services.BuildServiceProvider().GetService<MovieListContext>().Database.Migrate();
 
             
 
