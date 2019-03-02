@@ -4,3 +4,11 @@
     padding-top: 50px;
   }
 }
+
+.watchmenBackground {
+  background-image: url('../assets/watchmen.jpg'); 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
