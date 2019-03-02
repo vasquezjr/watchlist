@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MovieList } from './shared/movie-list.model';
 
+
 @Component({
   selector: 'app-movie-lists',
   templateUrl: './movie-lists.component.html',
