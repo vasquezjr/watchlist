@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MovieList } from './movie-list.model';
 import { HttpClient } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class MovieListsService {
     MovieListEntries: null
   }
   
-  readonly rootURL = 'https://localhost:44347/api'
+  readonly rootURL = environment.baseUrl; //'https://localhost:44347/api'
  
 
   constructor(private http: HttpClient) { }
