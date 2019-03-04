@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MovieListService {
-  //readonly rootURL = 'https://localhost:44347/api'
+
   readonly rootURL = environment.baseUrl;
 
   movie: Movie = {

@@ -16,7 +16,7 @@ export class MovieListsService {
     MovieListEntries: null
   }
   
-  readonly rootURL = environment.baseUrl; //'https://localhost:44347/api'
+  readonly rootURL = environment.baseUrl; 
  
 
   constructor(private http: HttpClient) { }

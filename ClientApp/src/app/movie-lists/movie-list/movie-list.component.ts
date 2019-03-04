@@ -88,9 +88,9 @@ export class MovieListComponent implements OnInit {
     this.service.postMovieListEntry()
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(result => {
+      this.toastr.success('Added Successfully', this.currentMovie.MovieName);
       this.getSelectedMovieList();
-      this.resetForm();  
-      this.toastr.success('Added Successfully', 'Movie Added to List');
+      this.resetForm();        
     },
     error => {
       this.toastr.error('Check if Movie in List', 'Error Adding Movie')
@@ -99,14 +99,14 @@ export class MovieListComponent implements OnInit {
   }
 
   //Deletes the Entry that References the MovieList and Movie
-  onDelete(movieListId:number, movieId:number)
+  onDelete(movieListId:number, movieId:number, movieName: string)
   {
     this.service.deleteMovieListEntry(movieListId, movieId)
     .pipe( takeUntil(this.ngUnsubscribe))
     .subscribe(
       result => {
         this.getSelectedMovieList();
-        this.toastr.success('Successfully Deleted', 'Movie List Deleted');
+        this.toastr.error('Successfully Deleted', movieName);
         },
       error => {console.log(error)}
     )
