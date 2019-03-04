@@ -93,7 +93,7 @@ export class MovieListComponent implements OnInit {
       this.resetForm();        
     },
     error => {
-      this.toastr.error('Check if Movie in List', 'Error Adding Movie')
+      this.toastr.error('Movie Already in List', 'Error Adding Movie')
       console.log(error);
     })
   }

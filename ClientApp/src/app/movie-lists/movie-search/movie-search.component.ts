@@ -16,6 +16,7 @@ export class MovieSearchComponent implements OnInit {
   //@Input() addNewMovie: any;
   @Output() addNewMovie = new EventEmitter();
 
+  searchBoxValue: string;
 
   //Use $ for Observables
   movies$: Observable<any[]>;
@@ -31,10 +32,21 @@ export class MovieSearchComponent implements OnInit {
 
   // Push a search term into the observable stream.
   search(term: string): void {
-    this.searchTerms.next(term);
-    console.log("INSIDE SEARCHTERM")
+    if(term.length > 2)
+      this.setupSearchTerm(term) 
   }
- 
+
+  //Set Up Search Term
+  setupSearchTerm(term: string) {
+    this.searchTerms.next(term);
+  }
+
+  //Reset Search Term
+  clearSearchTerm () {
+    this.setupSearchTerm('');
+    this.searchBoxValue='';
+  }
+
   ngOnInit(): void {
     this.movies$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
@@ -67,7 +79,7 @@ export class MovieSearchComponent implements OnInit {
        
       console.log("Add Movie To Database", this.serviceMovieList.movie)
       this.addNewMovie.emit();
-      
+      this.clearSearchTerm();
     },
       error => {
         console.log(error)
