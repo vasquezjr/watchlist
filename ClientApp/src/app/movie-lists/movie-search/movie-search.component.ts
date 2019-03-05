@@ -44,7 +44,7 @@ export class MovieSearchComponent implements OnInit {
   //Reset Search Term
   clearSearchTerm () {
     this.setupSearchTerm('');
-    this.searchBoxValue='';
+    this.searchBoxValue = '';
   }
 
   ngOnInit(): void {

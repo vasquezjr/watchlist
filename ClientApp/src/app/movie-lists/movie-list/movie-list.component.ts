@@ -99,14 +99,15 @@ export class MovieListComponent implements OnInit {
   }
 
   //Deletes the Entry that References the MovieList and Movie
-  onDelete(movieListId:number, movieId:number, movieName: string)
+  //onDelete(movieListId:number, movieId:number, movieName: string)
+  onDelete(deleteMovie: Movie)
   {
-    this.service.deleteMovieListEntry(movieListId, movieId)
+    this.service.deleteMovieListEntry(this.selectedMovieList.MovieListId, deleteMovie.MovieId)
     .pipe( takeUntil(this.ngUnsubscribe))
     .subscribe(
       result => {
         this.getSelectedMovieList();
-        this.toastr.error('Successfully Deleted', movieName);
+        this.toastr.error('Successfully Deleted', deleteMovie.MovieName);
         },
       error => {console.log(error)}
     )
