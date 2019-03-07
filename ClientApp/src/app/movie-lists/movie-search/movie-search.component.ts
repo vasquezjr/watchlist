@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import {
    debounceTime, distinctUntilChanged, switchMap, takeUntil
  } from 'rxjs/operators';
-import { Movie } from '../shared/movie.model';
+import { Movie } from '../shared/movie.interface';
 import { MovieSearchService } from '../shared/movie-search.service';
 import { MovieListService } from '../shared/movie-list.service';
 

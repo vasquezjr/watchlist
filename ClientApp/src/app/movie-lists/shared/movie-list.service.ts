@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 
-import { MovieListEntry } from './movie-list-entry.model';
-import { Movie } from './movie.model';
+import { MovieListEntry } from './movie-list-entry.interface';
+import { Movie } from './movie.interface';
 import { environment } from 'src/environments/environment';
 
 

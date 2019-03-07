@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieList } from '../shared/movie-list.model';
+import { MovieList } from '../shared/movie-list.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,7 +11,7 @@ import { MovieListEntryService } from '../shared/movie-list-entry.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
-import { Movie } from '../shared/movie.model';
+import { Movie } from '../shared/movie.interface';
 
 @Component({
   selector: 'app-movie-list',

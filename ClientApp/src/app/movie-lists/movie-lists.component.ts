@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 //For Unsubcribe
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MovieList } from './shared/movie-list.model';
+import { MovieList } from './shared/movie-list.interface';
 
 
 @Component({

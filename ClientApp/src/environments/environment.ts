@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:44347/api',
+  baseUrl: 'https://localhost:5001/api',
   movieAPIToken: '01295680d58a846b99ffebe8ff6317c2'
 };
 

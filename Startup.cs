@@ -76,13 +76,14 @@ namespace watchlist
                 app.UseHsts();
             }
 
+            if( !env.IsDevelopment())
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseCors(options =>
-            options.WithOrigins("https://localhost:4200", "https://watchmen302032.azurewebsites.net", "https://watchlist20190301042951.azurewebsites.net")
-            .AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(options =>
+            // options.WithOrigins("https://localhost:4200", "https://watchmen302032.azurewebsites.net", "https://watchlist20190301042951.azurewebsites.net")
+            // .AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc(routes =>
             {
@@ -103,6 +104,7 @@ namespace watchlist
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }

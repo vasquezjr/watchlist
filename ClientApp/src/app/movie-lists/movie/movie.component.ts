@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MovieListEntry } from '../shared/movie-list-entry.model';
-import { Movie } from '../shared/movie.model';
+import { MovieListEntry } from '../shared/movie-list-entry.interface';
+import { Movie } from '../shared/movie.interface';
 
 @Component({
   selector: 'app-movie',
