@@ -2,7 +2,7 @@ import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Movie } from './movie.interface';
+
 import { tap, map } from 'rxjs/operators';
 
 //Environment Variables

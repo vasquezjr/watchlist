@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MovieListEntry } from '../shared/movie-list-entry.interface';
-import { Movie } from '../shared/movie.interface';
+import { IMovieListEntry, IMovie } from 'src/app/shared/interfaces';
+
 
 @Component({
   selector: 'app-movie',
@@ -8,7 +8,7 @@ import { Movie } from '../shared/movie.interface';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit {
-  @Input() ml: MovieListEntry;
+  @Input() ml: IMovieListEntry;
   @Output() onDelete = new EventEmitter();
 
   constructor() { }
@@ -16,7 +16,7 @@ export class MovieComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteMovie(movie: Movie) {
+  deleteMovie(movie: IMovie) {
     this.onDelete.emit(movie);
   }
 }

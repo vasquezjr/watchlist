@@ -2,13 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 
-import { MovieListEntry } from './movie-list-entry.interface';
-import { Movie } from './movie.interface';
 import { environment } from 'src/environments/environment';
-
-
-// import { MovieListEntry } from './movie-list-entry.model';
-// import { Movie } from './movie.model';
+import { IMovie, IMovieListEntry } from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +12,7 @@ export class MovieListService {
 
   readonly rootURL = environment.baseUrl;
 
-  movie: Movie = {
+  movie: IMovie = {
     MovieId: 0,
     MovieApiId: 0,
     MovieName: 'default',
@@ -26,7 +21,7 @@ export class MovieListService {
     MovieTrailerLink: "",
     MovieListEntries: null,
   }
-  formData: MovieListEntry =  {
+  formData: IMovieListEntry =  {
     MovieListId: 0,
     MovieList: null,
     MovieId: 0,

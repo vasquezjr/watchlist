@@ -3,9 +3,12 @@ import { Observable, Subject } from 'rxjs';
 import {
    debounceTime, distinctUntilChanged, switchMap, takeUntil
  } from 'rxjs/operators';
-import { Movie } from '../shared/movie.interface';
-import { MovieSearchService } from '../shared/movie-search.service';
-import { MovieListService } from '../shared/movie-list.service';
+// import { Movie } from '../shared/movie.interface';
+
+import { IMovie } from 'src/app/shared/interfaces';
+import { MovieSearchService } from '../core/movie-search.service';
+import { MovieListService } from '../core/movie-list.service';
+
 
 @Component({
   selector: 'app-movie-search',
@@ -25,7 +28,7 @@ export class MovieSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private ngUnsubscribe = new Subject();
   
-  defaultMovie: Movie; 
+  defaultMovie: IMovie; 
   readonly baseImageUrl = "https://image.tmdb.org/t/p/original"
 
   constructor(private movieSearchService: MovieSearchService, private serviceMovieList: MovieListService) { }

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieListsService } from './shared/movie-lists.service';
+import { MovieListsService } from '../core/movie-lists.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 //For Unsubcribe
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MovieList } from './shared/movie-list.interface';
+import { IMovieList } from '../shared/interfaces';
+
+
 
 
 @Component({
@@ -16,7 +18,7 @@ import { MovieList } from './shared/movie-list.interface';
 })
 export class MovieListsComponent implements OnInit {
   private ngUnsubscribe = new Subject();
-  movieLists : MovieList[] = [];
+  movieLists : IMovieList[] = [];
  
   constructor(private service: MovieListsService,
               private toastr: ToastrService) { }
@@ -34,7 +36,7 @@ export class MovieListsComponent implements OnInit {
     this.service.getMovieLists()
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(result => {
-      this.movieLists = result as MovieList[]
+      this.movieLists = result as IMovieList[]
     })
   }
 

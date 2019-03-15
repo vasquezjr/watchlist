@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieList } from '../shared/movie-list.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 //Services
-import { MovieListService } from '../shared/movie-list.service';
-import { MovieListEntryService } from '../shared/movie-list-entry.service';
+import { MovieListService } from '../core/movie-list.service';
 
 //For Unsubcribe
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
-import { Movie } from '../shared/movie.interface';
+
+//Interface
+import { IMovieList, IMovie } from 'src/app/shared/interfaces';
+import { DataService } from '../core/data.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -20,10 +21,11 @@ import { Movie } from '../shared/movie.interface';
 })
 export class MovieListComponent implements OnInit {
   private ngUnsubscribe = new Subject();
-  selectedMovieList: MovieList;
-  currentMovie: Movie;
+  selectedMovieList: IMovieList;
+  currentMovie: IMovie;
  
   constructor(private route: ActivatedRoute,
+              private data: DataService,
               private service: MovieListService,
               private toastr: ToastrService) { }
 
@@ -46,10 +48,10 @@ export class MovieListComponent implements OnInit {
   // ***************************** Database ********************  
   getSelectedMovieList(){
     const id = +this.route.snapshot.paramMap.get('id');
-    this.service.getMovieList(id)
+    this.data.getMovieList(id)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(
-      result => this.selectedMovieList = result as MovieList,
+      (result: IMovieList) => this.selectedMovieList = result,
       error => {console.log(error)}
     );
   }
@@ -65,7 +67,7 @@ export class MovieListComponent implements OnInit {
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(result => 
       {
-        this.currentMovie = result as Movie;
+        this.currentMovie = result as IMovie;
         this.addMovieListEntry(); //possible add Form back
       },
         error => {
@@ -100,7 +102,7 @@ export class MovieListComponent implements OnInit {
 
   //Deletes the Entry that References the MovieList and Movie
   //onDelete(movieListId:number, movieId:number, movieName: string)
-  onDelete(deleteMovie: Movie)
+  onDelete(deleteMovie: IMovie)
   {
     this.service.deleteMovieListEntry(this.selectedMovieList.MovieListId, deleteMovie.MovieId)
     .pipe( takeUntil(this.ngUnsubscribe))

@@ -9,47 +9,48 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListsComponent } from './movie-lists/movie-lists.component';
-import { MovieListComponent } from './movie-lists/movie-list/movie-list.component';
-import { MovieComponent } from './movie-lists/movie/movie.component';
-import { MovieSearchComponent } from './movie-lists/movie-search/movie-search.component';
 
-//Services
-import { MovieListEntryService } from './movie-lists/shared/movie-list-entry.service';
-import { MovieService } from './movie-lists/shared/movie.service';
-import { MovieListService } from './movie-lists/shared/movie-list.service';
-import { MovieListsService } from './movie-lists/shared/movie-lists.service';
-import { MovieSearchService } from './movie-lists/shared/movie-search.service';
-
+// import { MovieComponent } from './movie-lists/movie/movie.component';
+// import { MovieSearchComponent } from './movie-lists/movie-search/movie-search.component';
 
 //For Toastr
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
 
+//Routing Modules
+import { MovieListRoutingModule } from './movie-list/movie-list-routing.module';
+import { MovieListsRoutingModule } from './movie-lists/movie-lists-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
+//Modules
+import { MovieListsModule } from './movie-lists/movie-lists.module';
+import { MovieListModule } from './movie-list/movie-list.module';
+import { MovieSearchModule } from './movie-search/movie-search.module';
+import { MovieModule } from './movie/movie.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    MovieListsComponent,
-    MovieListComponent,
-    MovieComponent,
-    MovieSearchComponent,
+    // HomeComponent,
+    // MovieComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'movielist/:id', component: MovieListComponent },
-    ])
+    MovieSearchModule,
+    MovieModule,
+    MovieListsModule,
+    MovieListModule,
+    CoreModule,
+    MovieListRoutingModule,
+    MovieListsRoutingModule,
+    AppRoutingModule,
+    // HttpClientModule,
+    //  FormsModule,
+     BrowserAnimationsModule,
+     ToastrModule.forRoot(), // ToastrModule added
   ],
-  //Add Services to Providers to be able to use in other Components
-  providers: [MovieListEntryService, MovieListService, MovieService, MovieListsService, MovieSearchService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

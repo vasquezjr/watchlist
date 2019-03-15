@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { MovieList } from './movie-list.interface';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 
+//Interfaces
 
+import { IMovieList } from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieListsService {
    
-  formData : MovieList = {
+  formData : IMovieList = {
     MovieListId : 0,
     MovieListName: '',
     MovieListEntries: null
@@ -18,7 +19,6 @@ export class MovieListsService {
   
   readonly rootURL = environment.baseUrl; 
  
-
   constructor(private http: HttpClient) { }
 
   //Get the List of MovieList
